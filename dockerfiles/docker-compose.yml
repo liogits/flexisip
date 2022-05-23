@@ -16,7 +16,7 @@ services:
     restart: always
     networks:
       proxy-tier:
-        ipv4_address: 172.10.16.2
+        ipv4_address: 172.10.0.2
 
   flexisip-mariadb:
     container_name: dc-flexisip-mariadb
@@ -33,7 +33,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       proxy-tier:
-        ipv4_address: 172.10.16.3
+        ipv4_address: 172.10.0.3
 
   nginx:
     container_name: nginx
@@ -61,7 +61,7 @@ services:
     restart: always
     networks:
       proxy-tier:
-        ipv4_address: 172.10.16.4
+        ipv4_address: 172.10.0.4
 
   phpmyadmin-fpm:
     container_name: dc-flexisip-phpmyadmin
@@ -83,7 +83,7 @@ services:
     restart: always
     networks:
       proxy-tier:
-        ipv4_address: 172.10.16.5
+        ipv4_address: 172.10.0.5
 
   ##### php-fpm-laravel
   php-fpm-laravel:
@@ -106,7 +106,7 @@ services:
     restart: always
     networks: 
       proxy-tier:
-        ipv4_address: 172.10.16.6
+        ipv4_address: 172.10.0.6
 
   flexisip:
     container_name: dc-flexisip
@@ -120,9 +120,12 @@ services:
     volumes:
       - ../volumes/flexisip/config:/etc/flexisip
       - ../volumes/flexisip/log:/var/opt/belledonne-communications/log/flexisip
+    depends_on: 
+      - redis
+      - flexisisp-mariadb
     networks:
       proxy-tier:
-        ipv4_address: 172.10.16.10
+        ipv4_address: 172.10.0.10
 
 networks:
   proxy-tier:
