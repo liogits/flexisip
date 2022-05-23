@@ -1,0 +1,2 @@
+#ignore volume files, conf files laying there are COPY'd via Dockerfiles
+/volumes

@@ -1,0 +1,33 @@
+FROM centos:7
+
+# Prepare the Belledonne's repository
+COPY Belledonne.repo /etc/yum.repos.d/Belledonne.repo
+RUN yum -y install epel-release
+RUN yum update -y
+
+# Install Flexisip
+RUN yum install bc-flexisip -y
+
+# Add it to the default path
+ENV PATH=$PATH:/opt/belledonne-communications/bin
+
+WORKDIR /opt/belledonne-communications
+
+# Generate a default configuration
+#RUN flexisip --dump-default all > /etc/flexisip/flexisip.conf
+
+VOLUME /etc/flexisip
+VOLUME /var/opt/belledonne-communications/log/flexisip
+
+#WORKDIR /opt/belledonne-communications
+
+COPY ./flexisip-entrypoint.sh /opt/belledonne-communications/
+RUN chmod a+x ./flexisip-entrypoint.sh
+
+# Script to wait db before launch flexisip [Licence Apache2]
+#ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+#RUN chmod +x /wait
+RUN yum clean all
+
+CMD flexisip
+#ENTRYPOINT [ "/bin/bash", "/flexisip-entrypoint.sh" ]

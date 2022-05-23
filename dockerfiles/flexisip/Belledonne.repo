@@ -1,0 +1,27 @@
+# keep this repository enabled even if you enable beta/alpha repositories
+[Belledonne-stable]
+name=Belledonne-stable
+baseurl=http://www.linphone.org/snapshots/centos/$releasever/stable
+enabled=1
+gpgcheck=0
+
+# enable this if you want post-release patches
+[Belledonne-hotfix]
+name=Belledonne-hotfix
+baseurl=http://www.linphone.org/snapshots/centos/$releasever/hotfix
+enabled=0
+gpgcheck=0
+
+# enable this if you want next release beta packages
+[Belledonne-beta]
+name=Belledonne-beta
+baseurl=http://www.linphone.org/snapshots/centos/$releasever/beta
+enabled=0
+gpgcheck=0
+
+# enable this to have development (unstable) packages
+[Belledonne-alpha]
+name=Belledonne-alpha
+baseurl=http://www.linphone.org/snapshots/centos/$releasever/alpha
+enabled=0
+gpgcheck=0

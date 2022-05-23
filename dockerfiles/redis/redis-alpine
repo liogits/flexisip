@@ -1,0 +1,4 @@
+FROM redis:alpine
+
+RUN apk add --no-cache bash nano
+COPY ./redis.conf /etc/redis/redis.conf
