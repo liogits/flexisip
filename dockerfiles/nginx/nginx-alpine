@@ -4,8 +4,8 @@ FROM nginx:alpine
 WORKDIR /var/www/html
 
 RUN apk add --no-cache bash nano tzdata certbot-nginx \
-  && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
-  && echo "Asia/Tokyo" > /etc/timezone \
+  && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+  && echo "Europe/Berlin" > /etc/timezone \
   && apk del tzdata
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf
 COPY nginx-crond /etc/periodic/monthly

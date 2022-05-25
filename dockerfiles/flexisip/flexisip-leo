@@ -1,28 +1,36 @@
 FROM centos:7
 
 # Prepare the Belledonne's repository
-COPY Belledonne.repo /etc/yum.repos.d/Belledonne.repo
+COPY BelledonneCom.repo /etc/yum.repos.d/BelledonneCom.repo
 RUN yum -y install epel-release
 RUN yum update -y
 
 # Install Flexisip
-RUN yum install bc-flexisip -y
+RUN yum install bc-flexisip-2.1.1 -y
 
 # Add it to the default path
 ENV PATH=$PATH:/opt/belledonne-communications/bin
 
-WORKDIR /opt/belledonne-communications
-
-# Generate a default configuration
-#RUN flexisip --dump-default all > /etc/flexisip/flexisip.conf
+#RUN systemctl stop firewalld
 
 VOLUME /etc/flexisip
 VOLUME /var/opt/belledonne-communications/log/flexisip
 
-#WORKDIR /opt/belledonne-communications
+# Generate a default configuration
+#RUN touch /etc/flexisip/flexisip.conf
+#RUN flexisip --dump-default all > /etc/flexisip/flexisip.conf
+
+#COPY ./flexisip.conf /etc/flexisip/flexisip.conf
 
 COPY ./flexisip-entrypoint.sh /opt/belledonne-communications/
-RUN chmod a+x ./flexisip-entrypoint.sh
+RUN chmod a+x /opt/belledonne-communications/flexisip-entrypoint.sh
+
+# RUN iptables -N flexisip-input-rules 
+# RUN  iptables -A flexisip-input-rules -p udp -m udp --dport 5060 -j ACCEPT 
+# RUN  iptables -A flexisip-input-rules -p tcp -m tcp --dport 5061 -j ACCEPT 
+# RUN  iptables -A flexisip-input-rules -p udp -m udp --dport 3478 -j ACCEPT 
+# RUN  iptables -A flexisip-input-rules -p udp -m udp --dport 10000:20000 -j ACCEPT 
+# RUN  iptables -A INPUT -j flexisip-input-rules
 
 # Script to wait db before launch flexisip [Licence Apache2]
 #ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait

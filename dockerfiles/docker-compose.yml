@@ -1,7 +1,7 @@
 services:
 
   redis:
-    container_name: dc-flexisip-redis
+    container_name: redis
     build:
       context: ./redis
       dockerfile: redis-alpine
@@ -19,7 +19,7 @@ services:
         ipv4_address: 172.10.0.2
 
   flexisip-mariadb:
-    container_name: dc-flexisip-mariadb
+    container_name: flexisip-mariadb
     image: mariadb
     restart: always
     volumes:
@@ -56,15 +56,15 @@ services:
       # for flexisip-account-manager
       - ../volumes/flexisip-account-manager:/var/www/html/flexisip-account-manager
     depends_on:
-      - phpmyadmin-fpm
+      - phpmyadmin
       - php-fpm-laravel
     restart: always
     networks:
       proxy-tier:
         ipv4_address: 172.10.0.4
 
-  phpmyadmin-fpm:
-    container_name: dc-flexisip-phpmyadmin
+  phpmyadmin:
+    container_name: phpmyadmin
     build:
       context: ./pma
       dockerfile: phpmyadmin-alpine
@@ -77,7 +77,7 @@ services:
       - PMA_ABSOLUTE_URI=http://localhost/phpmyadmin
     volumes:
       - phpmyadmin:/var/www/html
-      - ../volumes/pma/sessions
+      - /sessions
     depends_on:
       - flexisip-mariadb
     restart: always
@@ -88,11 +88,11 @@ services:
   ##### php-fpm-laravel
   php-fpm-laravel:
     container_name: php-fpm-laravel
-    build: 
+    build:
       context: ./php-fpm
-      dockerfile: php-fpm-alpine-laravel      
+      dockerfile: php-fpm-alpine-laravel
     tty: true
-    expose: 
+    expose:
       - "9000"
     # "php artisan serve" commmand default port
     ports:
@@ -104,12 +104,12 @@ services:
     depends_on:
       - flexisip-mariadb
     restart: always
-    networks: 
+    networks:
       proxy-tier:
         ipv4_address: 172.10.0.6
 
   flexisip:
-    container_name: dc-flexisip
+    container_name: flexisip
     ports:
       - "5060:5060"
       - "5061:5061"
@@ -120,9 +120,9 @@ services:
     volumes:
       - ../volumes/flexisip/config:/etc/flexisip
       - ../volumes/flexisip/log:/var/opt/belledonne-communications/log/flexisip
-    depends_on: 
+    depends_on:
       - redis
-      - flexisisp-mariadb
+      - flexisip-mariadb
     networks:
       proxy-tier:
         ipv4_address: 172.10.0.10
