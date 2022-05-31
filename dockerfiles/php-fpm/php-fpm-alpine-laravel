@@ -12,8 +12,10 @@ RUN apk add --no-cache bash nano libpng-dev freetype-dev libjpeg-turbo-dev libxm
 
 # Installing composer
 COPY composer_installer.sh /var/www/html
-RUN echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf \
-    && ./composer_installer.sh && mv composer.phar /usr/local/bin/composer
+RUN echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf
+RUN chmod a+x ./composer_installer.sh
+RUN ./composer_installer.sh
+RUN mv composer.phar /usr/local/bin/composer
 
 # Installing Laravel
 RUN chown -R www-data:www-data /var/www/html

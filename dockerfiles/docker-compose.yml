@@ -23,7 +23,7 @@ services:
     image: mariadb
     restart: always
     volumes:
-      - ../volumes/mariadb/dbdata:/var/lib/mysql
+      - mariadbdata:/var/lib/mysql
       - ../volumes/mariadb/config:/etc/mysql/conf.d
     # refer to .env
     environment:
@@ -96,7 +96,7 @@ services:
       - "9000"
     # "php artisan serve" commmand default port
     ports:
-      - 8000:8000
+      - 8080:8000
     volumes:
       # for laravel php framework
       - ../volumes/laravel/html:/var/www/html
@@ -116,7 +116,7 @@ services:
       - "3478:3478"
     build:
       context: ./flexisip
-      dockerfile: flexisip-leo
+      dockerfile: flexisip
     volumes:
       - ../volumes/flexisip/config:/etc/flexisip
       - ../volumes/flexisip/log:/var/opt/belledonne-communications/log/flexisip
@@ -132,9 +132,11 @@ networks:
     external:
       name: flexisip-proxy
 
-### $ docker volume create phpmyadmin letsencrypt     
+### $ docker volume create phpmyadmin letsencrypt mariadbdata    
 volumes:
   phpmyadmin:
     external: true
   letsencrypt:
+    external: true
+  mariadbdata:
     external: true
