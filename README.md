@@ -10,11 +10,16 @@
 #### Docker
 1. Docker Engine and Docker Compose have to be installed and working.
 2. Prepare intern network:
-    docker network create --gateway 172.16.0.1 --subnet 172.16.0.0/24 flexisip-proxy
+
+    `docker network create --gateway 172.16.0.1 --subnet 172.16.0.0/24 flexisip-proxy`
+
 3. Prepare volumes for phpMyAdmin, MariaDB and letsencrypt
-    docker volume create phpmyadmin
-    docker volume create letsencrypt
-    docker volume create mariadbdata
+
+    `docker volume create phpmyadmin`
+    
+    `docker volume create letsencrypt`
+
+    `docker volume create mariadbdata`
 
 #### Redis
 4. Generate ssl-Hash via
