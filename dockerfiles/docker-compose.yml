@@ -24,7 +24,6 @@ services:
     restart: always
     volumes:
       - mariadbdata:/var/lib/mysql
-      - ../volumes/mariadb/config:/etc/mysql/conf.d
     # refer to .env
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -34,6 +33,16 @@ services:
     networks:
       proxy-tier:
         ipv4_address: 172.10.0.3
+
+##### nginx
+  # after "docker-compose up -d", enter the container and execute the following commands. 
+  # "certbot certonly --standalone --agree-tos -n -m ficus.online@gmail.com -d sip.example.org"
+  # or
+  # "certbot --nginx --agree-tos -n -m ficus.online@gmail.com -d sip.example.org"
+  # then
+  # "cd /etc/letsencrypt/live/sip.example.org"
+  # "cp fullchain.pem cafile.pem"
+  # "awk 1 privkey.pem cert.pem > agent.pem"
 
   nginx:
     container_name: nginx
@@ -49,12 +58,8 @@ services:
       - ../volumes/nginx/config:/etc/nginx/conf.d
       # certbot letsencrypt certification
       - letsencrypt:/etc/letsencrypt
-      # shared the directory /var/www/html in php-fpm container
-      - ../volumes/nginx/html:/var/www/html
       # shared the directory /var/www/html in phpmysql-fpm container
       - phpmyadmin:/var/www/html/phpmyadmin
-      # for flexisip-account-manager
-      - ../volumes/flexisip-account-manager:/var/www/html/flexisip-account-manager
     depends_on:
       - phpmyadmin
       - php-fpm-laravel
@@ -99,8 +104,8 @@ services:
       - 8080:8000
     volumes:
       # for laravel php framework
+      # flexiapi origins here
       - ../volumes/laravel/html:/var/www/html
-      - ../volumes/flexisip-account-manager/conf:/etc/flexisip-account-manager
     depends_on:
       - flexisip-mariadb
     restart: always

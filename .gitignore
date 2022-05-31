@@ -1,3 +1,4 @@
-#ignore volume files, conf files laying there are COPY'd via Dockerfiles
-/volumes/flexisip/log
-*.env
+
+/volumes/flexisip/log/*
+/volumes/laravel/html/vendor
+.env
