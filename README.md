@@ -36,11 +36,11 @@
 8. Copy volumes/flexisip/config/example.flexisip.conf into flexisip.conf
 9. Insert MariaDB Enviroment Variables into
 
-    `soci-connection-string`
+        soci-connection-string
 
 10. Insert openssl-hash from Redis at
 
-        `redis-auth-password`
+        redis-auth-password
 
 11. Setup the transports and auth-domains to your SIP-Domain. Reference https://wiki.linphone.org/xwiki/wiki/public/view/Flexisip/A.%20Configuration%20Reference%20Guide/master/
 
@@ -54,33 +54,33 @@
  - The API is based on the Laravel-Framework and has to be configured after installation.
  - Execute a Shell inside the "php-fpm-laravel" container via Docker Desktop or
 
-    `sudo docker exec -it php-fpm-laravel /bin/sh`
+        sudo docker exec -it php-fpm-laravel /bin/sh
 
  - WorkDir should be /var/www/html if not
 
-    `cd /var/www/html`
+        cd /var/www/html
 
  - Inside this directory:
 
-    `chown -R www-data:www-data ./`
+        chown -R www-data:www-data ./
 
-    `chmod -R 755 ./`
+        chmod -R 755 ./
 
  - To install the API:
 
-    `composer install --no-dev`
+        composer install --no-dev
 
-    `cp example.env .env`
+        cp example.env .env
 
-    `php artisan key:generate   # This will generate the APP_KEY`
+        php artisan key:generate   # This will generate the APP_KEY
 
  - Edit all marked Env-Variables
  - You will need a Mail-Server and reCAPTCHA
  - To migrate the Database:
 
-    `docker-php-ext-install pdo_mysql`
+        docker-php-ext-install pdo_mysql
 
-    `php artisan migrate`
+        php artisan migrate
 
  - Because the API-Files are shared with the Host-Machine the could be permission issues
  - Im dealing with that at the moment.
