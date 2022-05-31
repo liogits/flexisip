@@ -28,9 +28,9 @@
 #### Flexisip
 8. Copy volumes/flexisip/config/example.flexisip.conf into flexisip.conf
 9. Insert MariaDB Enviroment Variables into
-    soci-connection-string
+    `soci-connection-string`
 10. Insert openssl-hash from Redis at
-    redis-auth-password
+        redis-auth-password
 11. Setup the transports and auth-domains to your SIP-Domain. Reference https://wiki.linphone.org/xwiki/wiki/public/view/Flexisip/A.%20Configuration%20Reference%20Guide/master/
 
 #### NGinx
