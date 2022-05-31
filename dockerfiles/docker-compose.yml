@@ -127,6 +127,8 @@ services:
       proxy-tier:
         ipv4_address: 172.10.0.10
 
+
+### $ docker network create --gateway 172.10.0.1 --subnet 172.10.0.0/24 flexisip-proxy
 networks:
   proxy-tier:
     external:
