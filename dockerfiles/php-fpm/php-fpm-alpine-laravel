@@ -22,6 +22,16 @@ RUN chown -R www-data:www-data /var/www/html
 RUN composer global require laravel/installer \
     && ln -s /root/.config/composer/vendor/laravel/installer/bin/laravel /usr/local/bin/laravel
 
+
+#Copy and unpack FlexiAPI
+VOLUME /var/www/html
+COPY flexiapi.tar.xz ./
+RUN tar -xf flexiapi.tar.xz
+
+# Copy prepared example env
+COPY /example.env ./
+RUN cp example.env .env
+
 # Make the log directory and the log file for flexisip-account-manager    
 RUN mkdir -p /var/opt/belledonne-communications/log \
     && cd /var/opt/belledonne-communications/log \
