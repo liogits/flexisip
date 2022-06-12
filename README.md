@@ -105,8 +105,8 @@
 
 ### Current Tasks
 
- [ ] Fixing .css not loading with FlexiAPI
- [ ] using letsencrypt for TLS
+ - [ ] Fixing .css not loading with FlexiAPI
+ - [ ] using letsencrypt for TLS
 
 #### Disclaimer
 
