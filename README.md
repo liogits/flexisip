@@ -101,7 +101,7 @@
 
  - When your behind a NAT and/or Firewall, you must open all the needed ports for serving globally.
  - NGINX uses `80/TCP, 443/TCP`
- - Flexisip uses `5060, 5061, 3478` both UDP and TCP. Depending on what Protcols you want to use for signaling.
+ - Flexisip uses `5060, 5061, 3478, 9900-10500` with UDP. Depending on what Protcols you want to use for signaling you could open the SIP-Ports `506x` for TCP.
 
 ### Current Tasks
 
