@@ -122,6 +122,7 @@ services:
       - 5060:5060/udp
       - 5061:5061/udp
       - 3478:3478/udp
+      - 9900-10500:9900-10500/udp
       
     build:
       context: ./flexisip
